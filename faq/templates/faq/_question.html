@@ -1,0 +1,6 @@
+{% load markup_tags %}
+
+<div id="faq_question_{{ question.id }}">
+	<h3><a href="{{ question.get_absolute_url }}">{{ question }}</a></h3>
+	{{ question.answer|apply_markup:question.markup }}
+</div>

@@ -1,0 +1,12 @@
+{% extends "faq/base_faq.html" %}
+{% load markup_tags %}
+
+{% block title %}{{ block.super }}: {{ question }}{% endblock %}
+
+{% block content_title %}
+	<h2>{{ question }}</h2>
+{% endblock %}
+
+{% block content %}
+	{{ question.answer|apply_markup:question.markup }}
+{% endblock %}
