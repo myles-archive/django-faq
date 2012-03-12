@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from faq.models import Question
+from faq.models import Question, Category
+
+class CategoryAdmin(admin.ModelAdmin):
+	prepopulated_fields = {'slug': ('title',)}
 
 class QuestionAdmin(admin.ModelAdmin):
 	list_display = (
@@ -22,4 +25,5 @@ class QuestionAdmin(admin.ModelAdmin):
 		})
 	)
 
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Question, QuestionAdmin)

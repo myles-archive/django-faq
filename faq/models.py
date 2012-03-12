@@ -14,6 +14,28 @@ try:
 except ImportError:
 	MarkupField = False
 
+class Category(models.Model):
+	title = models.CharField(_('title'), max_length=200)
+	slug = models.SlugField(_('slug'), max_length=25)
+	
+	date_added = models.DateTimeField(_('date added'), auto_now_add=True)
+	date_modified = models.DateTimeField(_('date modified'), auto_now=True)
+	
+	class Meta:
+		verbose_name = _('category')
+		verbose_name_plural = _('categories')
+		db_table = 'faq_categories'
+		ordering = ('title',)
+	
+	def __unicode__(self):
+		return u"%s" % self.title
+	
+	@permalink
+	def get_absolute_url(self):
+		return ('faq_category_detail', None, {
+			'slug': self.slug,
+		})
+
 class Question(models.Model):
 	question = models.CharField(_('question'), max_length=200)
 	answer = models.TextField(_('answer'))
@@ -27,6 +49,8 @@ class Question(models.Model):
 	slug = models.SlugField(_('slug'), max_length=25, unique=True)
 	
 	weight = models.IntegerField(_('weight'), default=0)
+	
+	categories = models.ManyToManyField(Category, blank=True, null=True)
 	
 	sites = models.ManyToManyField(Site, blank=True, null=True)
 	
