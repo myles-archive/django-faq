@@ -9,7 +9,7 @@ class FAQQuestionListView(ListView):
 	template_name = "faq/question_list.html"
 	
 	def get_queryset(self):
-		return Question.objects.all()
+		return Question.objects.filter(categories=None)
 
 class FAQQuestionDetailView(DetailView):
 	
